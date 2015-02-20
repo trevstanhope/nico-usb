@@ -1,6 +1,6 @@
 // USBProbe.cpp : Defines the class behaviors for the application.
-//
 
+// Libraries
 #include "stdafx.h"
 #include "USBProbe.h"
 #include "USBProbeDlg.h"
@@ -9,12 +9,10 @@
 #define new DEBUG_NEW
 #endif
 
-
 // CUSBProbeApp
 BEGIN_MESSAGE_MAP(CUSBProbeApp, CWinApp)
-	ON_COMMAND(ID_HELP, &CWinApp::OnHelp)
+ON_COMMAND(ID_HELP, &CWinApp::OnHelp)
 END_MESSAGE_MAP()
-
 
 // CUSBProbeApp construction
 CUSBProbeApp::CUSBProbeApp()
@@ -23,10 +21,8 @@ CUSBProbeApp::CUSBProbeApp()
 	// Place all significant initialization in InitInstance
 }
 
-
 // The one and only CUSBProbeApp object
 CUSBProbeApp theApp;
-
 
 // CUSBProbeApp initialization
 BOOL CUSBProbeApp::InitInstance()
@@ -39,6 +35,7 @@ BOOL CUSBProbeApp::InitInstance()
 	// visual styles.  Otherwise, any window creation will fail.
 	INITCOMMONCONTROLSEX InitCtrls;
 	InitCtrls.dwSize = sizeof(InitCtrls);
+    
 	// Set this to include all the common control classes you want to use
 	// in your application.
 	InitCtrls.dwICC = ICC_WIN95_CLASSES;
