@@ -1,0 +1,246 @@
+// Microsoft Visual C++ generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "afxres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// English (U.S.) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+#ifdef _WIN32
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
+#pragma code_page(1252)
+#endif //_WIN32
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE 
+BEGIN
+    "#include ""afxres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE 
+BEGIN
+    "#define _AFX_NO_SPLITTER_RESOURCES\r\n"
+    "#define _AFX_NO_OLE_RESOURCES\r\n"
+    "#define _AFX_NO_TRACKER_RESOURCES\r\n"
+    "#define _AFX_NO_PROPERTY_RESOURCES\r\n"
+    "\r\n"
+    "#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)\r\n"
+    "LANGUAGE 9, 1\r\n"
+    "#pragma code_page(1252)\r\n"
+    "#include ""res\\USBProbe.rc2""  // non-Microsoft Visual C++ edited resources\r\n"
+    "#include ""afxres.rc""     // Standard components\r\n"
+    "#endif\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDR_MAINFRAME           ICON                    "res\\USBProbe.ico"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_ABOUTBOX DIALOGEX 0, 0, 253, 54
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "About DetectIon"
+FONT 8, "MS Shell Dlg", 0, 0, 0x1
+BEGIN
+    LTEXT           "detectION Version 1.00",IDC_STATIC,40,11,119,8,SS_NOPREFIX
+    DEFPUSHBUTTON   "OK",IDOK,196,7,50,16,WS_GROUP
+END
+
+IDD_USBPROBE_DIALOG DIALOGEX 0, 0, 295, 218
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_MINIMIZEBOX | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+EXSTYLE WS_EX_APPWINDOW
+CAPTION "detectION"
+FONT 8, "MS Shell Dlg", 0, 0, 0x1
+BEGIN
+    GROUPBOX        "Connection",IDC_STATIC,7,7,281,44,WS_GROUP
+    COMBOBOX        IDC_COMBO_DEVICE_LIST,12,18,271,30,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    CHECKBOX        "&Connect",IDC_CHECK_CONNECT,229,34,54,13,BS_PUSHLIKE | WS_GROUP
+    DEFPUSHBUTTON   "&Read Probe",IDC_BUTTON_READ_VOLTAGE,24,93,54,14,WS_GROUP
+    LTEXT           "Debug Text:",IDC_DEBUG_TEXT_STATIC,168,124,41,8,NOT WS_VISIBLE
+    PUSHBUTTON      "C&lear",IDC_BUTTON_CLEAR,221,121,53,12,NOT WS_VISIBLE | WS_GROUP
+    CONTROL         "",IDC_RICHEDIT_RECEIVE,"RichEdit20A",ES_MULTILINE | ES_NOHIDESEL | ES_READONLY | NOT WS_VISIBLE | WS_BORDER | WS_VSCROLL | WS_TABSTOP,166,135,122,31
+    CTEXT           "Reading =",IDC_VOLTAGE_STATIC,25,54,234,29,SS_CENTERIMAGE
+    PUSHBUTTON      "Calibrate && Setup",IDC_CAL_SETUP_BUTTON,24,165,78,17
+    LTEXT           "Last Calibration:  ",IDC_CAL_DATE_TIME_STATIC,24,134,119,12
+    LTEXT           "Unit ID:  ",IDC_UNIT_ID_STATIC,24,122,98,11
+    PUSHBUTTON      "Calibrate Check",IDC_CAL_CHECK_BUTTON,24,146,78,17
+    CTEXT           "Cal Check Setpoint:",IDC_CAL_CHECK_VALUE_TEXT,24,188,71,12,SS_CENTERIMAGE
+    EDITTEXT        IDC_CAL_CHECK_SETPOINT,94,187,66,15,ES_AUTOHSCROLL
+END
+
+IDD_CALIBRATE DIALOGEX 0, 0, 327, 263
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Calibration & Setup"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    PUSHBUTTON      "Exit Without Saving",IDCANCEL,197,201,104,23
+    PUSHBUTTON      "Read Probe",IDC_READ_PROBE_BUTTON,28,42,60,17
+    LTEXT           "Reading = ",IDC_READING_STATIC,30,23,130,15
+    LTEXT           "Setpoint:",IDC_HIGH_SETPT,178,116,33,13
+    LTEXT           "Setpoint:",IDC_LOW_SETPT,36,116,35,15
+    EDITTEXT        IDC_EDIT_LOW_CAL,70,116,68,12,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT_HIGH_CAL,214,116,68,12,ES_AUTOHSCROLL
+    LISTBOX         IDC_LIST_LOW_CAL,70,132,68,25,LBS_SORT | LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
+    LISTBOX         IDC_LIST_HIGH_CAL,214,132,68,25,LBS_SORT | LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
+    GROUPBOX        "Low Calibration",IDC_LOW_CAL_BORDER,28,70,133,91
+    GROUPBOX        "High Calibration",IDC_HIGH_CAL_BORDER,168,70,133,91
+    PUSHBUTTON      "Start Low Cal",IDC_START_LOW_CAL,34,86,68,13
+    PUSHBUTTON      "Start High Cal",IDC_START_HIGH_CAL,176,86,68,13
+    LTEXT           "Low Cal Save",IDC_LOW_CAL_VALUE,36,103,116,12
+    LTEXT           "High Cal Save",IDC_HIGH_CAL_VALUE,178,103,116,12
+    LTEXT           "Unit ID:",IDC_UNIT_ID_STATIC,26,169,58,14
+    LTEXT           "Serial Number:",IDC_SERNUM_STATIC,26,185,58,14
+    LTEXT           "PPM or Molar:",IDC_PPM_MOLAR_STATIC,26,231,58,14
+    EDITTEXT        IDC_EDIT_UNIT_ID,82,169,68,12,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT_SER_NUM,82,186,68,12,ES_AUTOHSCROLL
+    PUSHBUTTON      "Save To Probe",IDC_SAVE_CAL_BUTTON,196,175,105,23,BS_MULTILINE
+    LTEXT           "Date/Time  ",IDC_CAL_DATE_TIME_STATIC,84,201,109,12
+    LTEXT           "Probe SW Version:",IDC_CAL_DATE_TIME_STATIC2,25,216,161,13
+    LTEXT           "Last Calibrated:",IDC_DATE_LABEL,26,201,56,14
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 2,0,0,0
+ PRODUCTVERSION 2,0,0,0
+ FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+ FILEFLAGS 0x1L
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS 0x4L
+ FILETYPE 0x1L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "040904e4"
+        BEGIN
+            VALUE "CompanyName", "Nico Scientific"
+            VALUE "FileDescription", "USB Probe"
+            VALUE "FileVersion", "2.00"
+            VALUE "InternalName", "USBProbe.exe"
+            VALUE "LegalCopyright", "Copyright © 2011 Nico Scientific."
+            VALUE "OriginalFilename", "USBProbe.exe"
+            VALUE "ProductName", "Nico Scientifice detectIon"
+            VALUE "ProductVersion", "1.00"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x409, 1252
+    END
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO 
+BEGIN
+    IDD_ABOUTBOX, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 246
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 47
+    END
+
+    IDD_USBPROBE_DIALOG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 288
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 211
+    END
+
+    IDD_CALIBRATE, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 320
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 256
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE 
+BEGIN
+    IDS_ABOUTBOX            "&About USBProbe..."
+    IDS_STRING_NOT_CONNECTED "Please connect to a device first."
+END
+
+#endif    // English (U.S.) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+#define _AFX_NO_SPLITTER_RESOURCES
+#define _AFX_NO_OLE_RESOURCES
+#define _AFX_NO_TRACKER_RESOURCES
+#define _AFX_NO_PROPERTY_RESOURCES
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+LANGUAGE 9, 1
+#pragma code_page(1252)
+#include "res\USBProbe.rc2"  // non-Microsoft Visual C++ edited resources
+#include "afxres.rc"     // Standard components
+#endif
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+
