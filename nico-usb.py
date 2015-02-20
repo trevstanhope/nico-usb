@@ -1,6 +1,7 @@
 """
 Python Interface for Nico USB HID sensors
 """
+
 # Modules
 import usb.core
 import usb.util
@@ -33,9 +34,12 @@ def pyus():
 
     try:
         pretty_print('WARNING', 'Creating udev device')
-        config = { 'product' : int(8468), 'vendor' : '10c4', 'interface' : 0}
-        dev = usb.core.find()
-        pretty_print('WARNING', type(dev))
+        config = { 'product' : 8468, 'vendor' : '10c4', 'interface' : 0, 'manufacturer':'SLAB', 'timeout':1000}
+        all_devs = usb.core.find('10c4:8468')
+        for dev in all_devs:
+            pretty_print('DEVICE', '%s %s' % (dev.product, dev.manufacturer))
+            if dev.manufacturer == config['manufacturer']:
+                break
     except Exception as e:
         pretty_print('ERR 002', str(e))
         
@@ -59,7 +63,7 @@ def pyus():
         pretty_print('WARNING', 'Finding descriptor of interface')
         intf = usb.util.find_descriptor(cfg)
     except Exception as e:
-        pretty_print('INTF ERR', str(e))
+        pretty_print('ERR 500', str(e))
         
     try:
         pretty_print('WARNING', 'Finding EP In descriptor')
@@ -108,7 +112,7 @@ def pyus():
  
     while True:
         try:
-            dev.write(ep_in.bEndpointAddress, str(0x83))
+            dev.write(ep_in.bEndpointAddress, str(0x83), config['timeout'])
         except Exception as e:
             pretty_print('ERR 401', str(e))
             
