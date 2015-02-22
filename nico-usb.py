@@ -1,49 +1,59 @@
 """
 Python Interface for Nico USB HID sensors
+NOTE: Need admin priviledges to access the USB
 """
 
 # Modules
 import usb.core
 import usb.util
 
+# Commands
+OUT_DATA_CODE_READ_VOLTAGE = 0x81
+OUT_DATA_CODE_CALIBRATE = 0x82
+OUT_DATA_CODE_GET_CAL_DATA = 0x83
+OUT_DATA_CODE_GET_SW_VERSION = 0x84
+
+IN_DATA_A2D_DATA = 0x41
+IN_DATA_CAL_DATA = 0x42
+IN_DATA_SW_VERSION_DATA = 0x43
+
 # Pretty Print
 def pretty_print(task, msg):
     print("%s\t%s" % (task, msg))
 
-# PyUS Function #! TODO Make into class
+# PyUS Function
 class NicoUSB:
 
     def __init__(self):
     
         # Initialize Device Connection
-        try:
-            pretty_print('WARNING', 'Creating udev device')
-            config = {
-                'product' : 0x8468,
-                'vendor' : 0x10c4,
-                'interface' : 0,
-                'manufacturer' : 'SLAB',
-                'timeout' : 1000
-                }
-            self.config = config
-            self.dev = None
-            all_devs = usb.core.find() # Finding UDEV Devices
-            for d in all_devs:
-                try:
-                    pretty_print('DEVICE', '%s %s' % (d.product, d.manufacturer))
-                    if d.manufacturer == config['manufacturer']:
-                        self.dev = d
-                except Exception as e:
-                    pass
-            if self.dev is None: 
-                pretty_print('ERR 000', 'DEVICE NOT FOUND')
-                return
-            else:
-                pretty_print('WARNING', 'DEVICE OKAY')
-        except Exception as e:
-            pretty_print('ERR 002', str(e))
+        config = {
+            'product' : 0x8468,
+            'vendor' : 0x10c4,
+            'interface' : 0x0,
+            'manufacturer' : 'SLAB',
+            'read_timeout' : 1,
+            'write_timeout' : 1000
+            }
+        self.config = config
+        self.dev = None
+        all_devs = usb.core.find('10c4:8468') # Finding UDEV Devices
+        for d in all_devs:
+            try:
+                if d.manufacturer == config['manufacturer']:
+                    self.dev = d
+            except usb.USBError as e:
+                print str(e)
+            except Exception as e:
+                print str(e)
+                
+        if self.dev is None: 
+            raise ValueError('[ERR 000] DEVICE NOT FOUND')
+        else:
         
-        if self.dev:
+            # Print configuration
+            print self.dev
+            
             # Get the Active Configuration
             try:
                 pretty_print('WARNING', 'Getting udev config')
@@ -118,32 +128,33 @@ class NicoUSB:
                 pretty_print('ERR 302', str(e))
 
     # Write --> Read Loop
-    def query_usb(self, cmd_byte = str(0x83)):
+    def query_usb(self, cmd_byte = str(0x81)):
         try:
-            pretty_print('WARNING', 'Writing to USB')
-            self.dev.write(self.ep_out.bEndpointAddress, cmd_byte, self.config['timeout'])
+            self.dev.write(self.ep_out.bEndpointAddress, cmd_byte, self.config['write_timeout'])
         except Exception as e:
             pretty_print('ERR 401', str(e))
             return
             
         try:
-            pretty_print('WARNING', 'Reading from USB')
-            data = dev.read(self.ep_in.bEndpointAddress, self.ep_in.wMaxPacketSize*2, self.config['timeout'])
+            data = self.dev.read(self.ep_in.bEndpointAddress, self.ep_in.wMaxPacketSize, self.config['read_timeout'])
             data = data.tolist()
-            key = join_int(data)
-            print "Key is " , key
             return data
         except AttributeError as e:
             pretty_print('ERR 403', str(e))
             return
         except usb.core.USBError as e:
-            pretty_print('ERR 402', str(e))
             return
+    
+    # Reset Connection
+    def reset(self):
+        self.dev.reset()
 
 if __name__ == '__main__':
     root = NicoUSB()
     while True:
         try:
-            print root.query_usb()
+            res = root.query_usb()
+            if res:
+                print res
         except KeyboardInterrupt:
             break
