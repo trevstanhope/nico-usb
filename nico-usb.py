@@ -127,10 +127,20 @@ class NicoUSB:
             except Exception as e:
                 pretty_print('ERR 302', str(e))
 
+    # Get Voltage
+    def get_voltage(self):
+        return self.query_usb(OUT_DATA_CODE_READ_VOLTAGE)
+    
+    def get_cal_data(self):
+        return self.query_usb(OUT_DATA_CODE_GET_CAL_DATA)
+    
+    def get_version(self):
+        return self.query_usb(OUT_DATA_CODE_GET_SW_VERSION)
+        
     # Write --> Read Loop
-    def query_usb(self, cmd_byte = str(0x81)):
+    def query_usb(self, cmd_byte):
         try:
-            self.dev.write(self.ep_out.bEndpointAddress, cmd_byte, self.config['write_timeout'])
+            self.dev.write(self.ep_out.bEndpointAddress, str(cmd_byte), self.config['write_timeout'])
         except Exception as e:
             pretty_print('ERR 401', str(e))
             return
@@ -138,7 +148,9 @@ class NicoUSB:
         try:
             data = self.dev.read(self.ep_in.bEndpointAddress, self.ep_in.wMaxPacketSize, self.config['read_timeout'])
             data = data.tolist()
-            return data
+            join_int = lambda nums: int(''.join(str(i) for i in nums)) #! FIXME
+            res = join_int(data)
+            return res #!TODO parse data into meaningful result
         except AttributeError as e:
             pretty_print('ERR 403', str(e))
             return
@@ -153,7 +165,7 @@ if __name__ == '__main__':
     root = NicoUSB()
     while True:
         try:
-            res = root.query_usb()
+            res = root.get_voltage()
             if res:
                 print res
         except KeyboardInterrupt:
